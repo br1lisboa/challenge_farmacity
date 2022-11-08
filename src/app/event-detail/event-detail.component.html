@@ -1,0 +1,42 @@
+<div *ngIf="event">
+
+  <h2>{{event.name | uppercase}}</h2>
+  <div><span>id: </span>{{event.id}}</div>
+  <div>
+    <label for="event-name">Nombre: </label>
+    <input id="event-name" [(ngModel)]="event.name" placeholder="nombre" [disabled]="!event.creator" required>
+    <label for="event-name">Fecha: </label>
+    <input id="event-name" type="datetime" [(ngModel)]="event.date" placeholder="date" [disabled]="!event.creator" required>
+  </div>
+
+  <div id="search-component" *ngIf="event.creator">
+    <label for="search-box">Agregar Peliculas</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  
+    <ul class="search-result">
+      <li *ngFor="let movie of movies$ | async">
+        <a (click)="addMovie2Event(movie)">
+          {{movie.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <h1>Películas</h1>
+    <div class="movies-menu">
+        <div *ngFor="let movie of event.movies">
+            <div class="col">
+                <a routerLink="/movie/{{movie.movieId}}">
+                    <img src="{{movie.img}}" alt="">
+                    <div>{{movie.description}} Votos: {{movie.votedBy.length}}</div>
+                </a>
+                <div class="row">
+                    <button type="button" (click)="vote(movie.movieId)" [disabled]="!canVote">Votar</button>
+                    <button type="button" (click)="removeMovie(movie.movieId)" [disabled]="!event.creator">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  <button type="button" (click)="goBack()">Volver</button>
+  <button type="button" (click)="save()" [disabled]="!event.creator">Guardar</button>
+</div>

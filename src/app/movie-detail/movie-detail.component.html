@@ -1,0 +1,11 @@
+<div *ngIf="movie">
+    <h2>{{movie.name | uppercase}}</h2>    
+    <img src="{{movie.img}}" alt="">
+    <div><span>Sinopsis: {{movie.synopsis}}</span></div>
+    <div><span>Director: {{movie.directedBy}}</span></div>
+    <div><span>Duración: {{movie.duration}}</span></div>
+    <div><span>Estreno: {{movie.release}}</span></div>
+    <a href="{{movie.trailer}}">Trailer</a>
+</div>
+
+<button type="button" (click)="goBack()">Volver</button>
